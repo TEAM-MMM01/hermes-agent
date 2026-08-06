@@ -3977,24 +3977,30 @@ def _restart_slash_worker(sid: str, session: dict):
     _attach_worker(sid, session, new_worker)
 
 
-def _persist_model_switch(result) -> None:
+def _persist_model_switch(result) -> bool:
+    """Write a global TUI model switch to config.yaml.
+
+    Returns False when any key failed to persist so the caller can tell the
+    user the switch is session-scoped instead of reporting ``scope: global``
+    for a config.yaml that was never written.
+    """
     # Use targeted, atomic key writes (comment/ordering-preserving) instead of
     # rewriting the whole `model:` block. A full-block rewrite via save_config()
     # destroys sibling keys the user set under `model:` — `model_slots`,
     # `model_fallback`, etc. — when switching models from the TUI (#48305).
     from cli import save_config_value
 
-    save_config_value("model.default", result.new_model)
-    save_config_value("model.provider", result.target_provider)
+    ok = save_config_value("model.default", result.new_model)
+    ok = save_config_value("model.provider", result.target_provider) and ok
     if result.base_url:
-        save_config_value("model.base_url", result.base_url)
+        return save_config_value("model.base_url", result.base_url) and ok
     else:
         # Clear any stale base_url when switching to a provider that doesn't use
         # one (e.g. custom endpoint -> native provider). Reads coalesce null to
         # absent (`model_cfg.get("base_url") or ""`), so a null is equivalent to
         # removal without needing a key-delete. Leaving the old value would
         # route the new model at the previous custom host (#48305).
-        save_config_value("model.base_url", None)
+        return save_config_value("model.base_url", None) and ok
 
 
 def _snapshot_agent_model_runtime(agent) -> dict:
@@ -4237,13 +4243,27 @@ def _apply_model_switch(
             "api_key": result.api_key,
             "api_mode": result.api_mode,
         }
+    warning = result.warning_message or ""
+    persisted = True
     if persist_global:
-        _persist_model_switch(result)
+        persisted = _persist_model_switch(result)
+        if not persisted:
+            # Never report a global scope we failed to write: the agent (and,
+            # when pinned, the session override) already carries the switch, so
+            # it is session-scoped until config.yaml is writable again.
+            note = (
+                "could not write config.yaml — this switch applies to the "
+                "current session only (see errors.log)"
+            )
+            warning = f"{warning}\n{note}" if warning else note
     return {
         "value": result.new_model,
-        "warning": result.warning_message or "",
+        "warning": warning,
         "confirm_required": False,
-        "scope": "once" if one_turn else ("global" if persist_global else "session"),
+        "scope": (
+            "once" if one_turn
+            else ("global" if persist_global and persisted else "session")
+        ),
     }
 
 

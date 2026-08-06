@@ -4146,6 +4146,39 @@ def save_config_value(key_path: str, value: any) -> bool:
         return False
 
 
+_GLOBAL_MODEL_SAVE_FAILED_MESSAGE = (
+    "    ⚠ Could not write config.yaml — switch applies to this session only "
+    "(see errors.log)"
+)
+
+
+def _clear_persisted_context_length() -> None:
+    """Drop ``model.context_length``, warning when the write doesn't land."""
+    if not save_config_value("model.context_length", None):
+        logger.warning(
+            "Could not clear model.context_length in config.yaml; the previous "
+            "route's context pin still applies on the next launch"
+        )
+
+
+def _persist_global_model_switch(result) -> bool:
+    """Persist a ``/model ... --global`` switch, reporting write failures.
+
+    Every key is attempted even if an earlier one fails: a partial
+    ``model:`` block (new model, old base_url) routes the next launch at the
+    previous provider's host, so the remaining keys must still be synced.
+    Returns False when any write failed, so the caller does not claim the
+    switch was saved.
+    """
+    keys = (
+        ("model.default", result.new_model),
+        ("model.provider", result.target_provider),
+        ("model.base_url", result.base_url or None),
+        ("model.api_mode", result.api_mode or None),
+    )
+    return all([save_config_value(key, value) for key, value in keys])
+
+
 
 
 # ============================================================================
@@ -5105,7 +5138,7 @@ class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin, CLIBillingMixin):
             return
 
         self._battery_visible = target
-        save_config_value("display.battery", target)
+        battery_saved = save_config_value("display.battery", target)
 
         if target:
             if reading is not None and not reading.available:
@@ -5120,6 +5153,11 @@ class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin, CLIBillingMixin):
                 self._console_print("  Battery indicator on")
         else:
             self._console_print("  Battery indicator off")
+        if not battery_saved:
+            self._console_print(
+                "  Failed to save battery setting to config.yaml "
+                "(active this session only)"
+            )
 
     @staticmethod
     def _compression_count_style(count: int) -> str:
@@ -8899,9 +8937,16 @@ class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin, CLIBillingMixin):
                 model_cfg.get("provider"),
                 result.target_provider,
             ):
-                save_config_value("model.context_length", None)
+                _clear_persisted_context_length()
         except Exception:
-            save_config_value("model.context_length", None)
+            # Ownership couldn't be evaluated — clear the pin rather than leave
+            # a context length from the previous route in place, but say why.
+            logger.warning(
+                "Could not evaluate the persisted context pin during a model "
+                "switch; clearing model.context_length",
+                exc_info=True,
+            )
+            _clear_persisted_context_length()
 
     def _apply_model_switch_result(
         self, result, persist_global: bool, custom_providers=None
@@ -9032,17 +9077,16 @@ class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin, CLIBillingMixin):
             _cprint(f"    ⚠ {result.warning_message}")
         if persist_global:
             HermesCLI._clear_persisted_context_for_model_switch(self, result)
-            save_config_value("model.default", result.new_model)
-            save_config_value("model.provider", result.target_provider)
             # base_url/api_mode were previously never persisted here, so a
             # global switch left the OLD provider's endpoint/wire-protocol in
             # config.yaml. result.base_url/api_mode are always freshly
             # resolved for the target provider (see model_switch.py), so sync
             # them every time; None clears a value the new provider doesn't
             # need (#25106).
-            save_config_value("model.base_url", result.base_url or None)
-            save_config_value("model.api_mode", result.api_mode or None)
-            _cprint("    Saved to config.yaml (--global)")
+            if _persist_global_model_switch(result):
+                _cprint("    Saved to config.yaml (--global)")
+            else:
+                _cprint(_GLOBAL_MODEL_SAVE_FAILED_MESSAGE)
         else:
             _cprint("    (session only — add --global to persist)")
 
@@ -9385,13 +9429,12 @@ class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin, CLIBillingMixin):
         # Persistence
         if persist_global:
             HermesCLI._clear_persisted_context_for_model_switch(self, result)
-            save_config_value("model.default", result.new_model)
-            save_config_value("model.provider", result.target_provider)
             # See _apply_model_switch_result above for why base_url/api_mode
             # must be synced on every global switch (#25106).
-            save_config_value("model.base_url", result.base_url or None)
-            save_config_value("model.api_mode", result.api_mode or None)
-            _cprint("    Saved to config.yaml")
+            if _persist_global_model_switch(result):
+                _cprint("    Saved to config.yaml")
+            else:
+                _cprint(_GLOBAL_MODEL_SAVE_FAILED_MESSAGE)
         elif one_turn:
             _cprint("    (next turn only — restores after one response)")
         else:
@@ -10529,9 +10572,18 @@ class HermesCLI(CLIAgentSetupMixin, CLICommandsMixin, CLIBillingMixin):
             try:
                 from hermes_cli.focus_view import FOCUS_CONFIG_KEY
 
-                save_config_value(FOCUS_CONFIG_KEY, False)
+                if not save_config_value(FOCUS_CONFIG_KEY, False):
+                    logger.warning(
+                        "Could not clear %s after /verbose took over the "
+                        "tool-progress mode; focus view will come back on "
+                        "the next launch",
+                        FOCUS_CONFIG_KEY,
+                    )
             except Exception:
-                pass
+                logger.warning(
+                    "Failed to clear the focus-view config key after /verbose",
+                    exc_info=True,
+                )
 
         if self.agent:
             self.agent.reasoning_callback = self._current_reasoning_callback()
