@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse, sqlite3
+from datetime import datetime, timezone
 from pathlib import Path
 SCHEMA=Path(__file__).with_name('schema.sql').read_text()
 def conn(path):
@@ -12,8 +13,8 @@ def list_leads(a):
 def update_status(a):
     with conn(a.db) as db: db.execute('UPDATE leads SET status=? WHERE id=?',(a.status,a.lead_id)); print('Status updated')
 def add_engagement(a):
-    closed='CURRENT_TIMESTAMP' if a.status=='closed_won' else 'NULL'
-    with conn(a.db) as db: db.execute(f'INSERT INTO engagements(lead_id,tier,price,status,closed_at) VALUES(?,?,?,?,{closed})',(a.lead_id,a.tier,a.price,a.status)); print('Engagement added')
+    closed=datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S') if a.status=='closed_won' else None
+    with conn(a.db) as db: db.execute('INSERT INTO engagements(lead_id,tier,price,status,closed_at) VALUES(?,?,?,?,?)',(a.lead_id,a.tier,a.price,a.status,closed)); print('Engagement added')
 def revenue_summary(a):
     with conn(a.db) as db:
         rows=db.execute("SELECT tier, strftime('%Y-%m', COALESCE(closed_at, started_at)) month, SUM(price) FROM engagements WHERE status='closed_won' GROUP BY tier, month ORDER BY month,tier").fetchall()
