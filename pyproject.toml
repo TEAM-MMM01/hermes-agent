@@ -45,6 +45,11 @@ dependencies = [
   "rich==14.3.3",
   "tenacity==9.1.4",
   "pyyaml==6.0.3",
+  # pygments only reaches us transitively (rich, pytest), but 2.19.2 is
+  # vulnerable to the archetype AdlLexer infinite loop (PYSEC-2026-2987) and
+  # rich highlights model/tool output, so pin the fixed floor explicitly the
+  # same way cryptography and urllib3 are pinned below.
+  "pygments==2.20.0",
   "ruamel.yaml==0.18.17",
   "requests==2.33.0",  # CVE-2026-25645
   "jinja2==3.1.6",
