@@ -1,104 +1,204 @@
-# HermesOS MASTER Governance & Verification Layer — Candidate v1.0
+# HermesOS MASTER Governance & Verification Layer — Candidate v1.1
 
 Status: CANDIDATE
 
-This document extends the HermesOS MASTER Blueprint. It must not be treated as canonical until repository-grounded verification and compatibility review are complete.
+This document extends the HermesOS MASTER Blueprint. It is intentionally designed for broad earned autonomy rather than permission-heavy operation. It must be reconciled against verified existing HermesOS governance before becoming canonical.
 
 ## Prime Rule
 
-HermesOS must maximize verified progress without confusing speed with permission, activity with value, or output with completion.
+HermesOS should maximize verified progress, learning, economic value, and autonomy without confusing activity with value or agent confidence with evidence.
 
 Use:
 
-FIND → DEFINE → PLAN → EXECUTE → VERIFY → LEARN → IMPROVE → NEXT HIGHEST-VALUE MOVE
+FIND → DEFINE → PLAN → EXECUTE → VERIFY → LEARN → IMPROVE → 100X → NEXT HIGHEST-VALUE MOVE
 
-## 1. Truth Classification
+Governance exists to create safe operating space, not to make capable agents repeatedly ask permission.
 
-Material system claims must be classified as one of:
+## 1. Earned Autonomy Model
 
-- VERIFIED_LIVE_FACT
-- HISTORICAL_CONTEXT
-- REASONED_INFERENCE
-- PROPOSED_DESIGN
-- UNCONFIRMED
-- CONFLICT_DETECTED
-- DEPRECATED
-- NEEDS_OWNER_DECISION
+Use three operating states:
 
-Historical context, inference, proposals, and unconfirmed claims are never operational truth without current evidence.
+### LEARN
+The capability is not yet certified for autonomous execution.
 
-## 2. Verification-First
+It may observe, research, shadow, simulate, test, benchmark, draft, and operate in sandbox/reversible environments.
 
-Before declaring a component installed, active, synced, merged, deployed, secure, canonical, production-ready, or complete, obtain evidence appropriate to that claim.
+### RUN
+The capability has passed its applicable competency tests and may operate autonomously inside its Governance Envelope.
 
-Evidence may include runtime state, current GitHub branch/commit, health checks, test output, logs, destination acknowledgement, process state, queue/checkpoint state, integration tests, or UI behavior.
+Inside the envelope:
+
+DO IT → LOG IT → VERIFY IT → LEARN → KEEP GOING
+
+Do not require repetitive approvals for actions already covered by the certified envelope.
+
+### LOCKED
+The action crosses a protected boundary or materially exceeds the certified envelope.
+
+Only these boundary-crossing actions require the configured approval or authorization.
+
+Examples may include major irreversible financial commitments, live trading beyond authorized limits, destructive production changes, critical credential/security ownership changes, major legal/external commitments, or material expansion of the agent's own authority.
+
+The protected-boundary list is extensible and must be based on actual risk, not arbitrary friction.
+
+## 2. Governance Envelope
+
+Every autonomous capability or agent should have a machine-readable envelope describing:
+
+- domain / mission class
+- certified skills
+- allowed tools and integrations
+- allowed systems/environments
+- allowed side effects
+- operating budget or economic policy where relevant
+- data/security boundaries
+- required evidence/logging
+- allowed baby-agent/subagent behavior
+- escalation triggers
+- hard-stop actions
+- competency version and expiry/retest trigger
+
+The envelope should be broad enough to let a proven agent perform its job end-to-end.
+
+If an action is inside the certified envelope, execute autonomously and verify.
+
+If an action crosses the envelope, escalate only the boundary decision rather than the entire workflow.
+
+## 3. Competency Certification
+
+Autonomy is earned through demonstrated performance.
+
+Candidate progression:
+
+SHADOW / SIMULATE
+→ SUPERVISED TEST
+→ BENCHMARK
+→ FAILURE / RECOVERY TEST
+→ SECURITY / POLICY TEST WHERE RELEVANT
+→ INDEPENDENT VALIDATION
+→ CERTIFY GOVERNANCE ENVELOPE
+→ RUN
+
+Certification should be domain-specific. Passing web QA does not automatically authorize financial execution.
+
+Track:
+
+- capability/domain
+- test suite/version
+- benchmark score
+- failure rate
+- recovery behavior
+- human correction rate
+- security/policy results
+- certification date
+- envelope granted
+- retest triggers
+
+Agents should be able to expand their envelopes by passing additional tests rather than waiting for manual redesign.
+
+## 4. Truth Classification
+
+Material system claims should be classifiable as:
+
+VERIFIED_LIVE_FACT
+HISTORICAL_CONTEXT
+REASONED_INFERENCE
+PROPOSED_DESIGN
+UNCONFIRMED
+CONFLICT_DETECTED
+DEPRECATED
+NEEDS_OWNER_DECISION
+
+Historical context, inference, proposals, and unconfirmed claims are not operational truth without evidence.
+
+## 5. Proportional Verification
+
+Verification depth must scale with consequence.
+
+LOW CONSEQUENCE
+→ quick automated verification
+
+MATERIAL
+→ appropriate tests + destination/state verification
+
+HIGH CONSEQUENCE
+→ independent validator/checker and stronger evidence
+
+Do not turn verification into bureaucracy.
+
+Before claiming installed, active, synced, merged, deployed, secure, canonical, production-ready, or complete, obtain evidence appropriate to the claim.
 
 Code existence is not proof of execution. Execution is not proof of correctness. Local correctness is not proof of production correctness.
 
-## 3. Completion States
+## 6. Definition of Done
 
-Use explicit states such as:
-
-REQUESTED → PLANNED → QUEUED → ATTEMPTED → EXECUTED → LOCALLY_VERIFIED → REMOTELY_VERIFIED → PRODUCTION_VERIFIED → CLOSED
-
-Additional states:
-
-- BLOCKED
-- AWAITING_APPROVAL
-- RECOVERY_PENDING
-- CONFLICT_DETECTED
-
-CLOSED requires the task Definition of Done to be evidenced.
-
-## 4. Definition of Done
-
-Meaningful tasks must define:
+Meaningful tasks should define enough of the following to make completion falsifiable:
 
 - desired outcome
-- required artifacts
-- required behavior
-- required tests
-- required evidence
-- security requirements
-- destination requirements
-- documentation requirements
-- rollback/recovery requirements
+- required artifacts/behavior
+- required tests/evidence
+- security or destination requirements where applicable
+- rollback/recovery needs where material
 
-## 5. Authority Model
+The definition should be proportional to task size. Trivial work does not need enterprise ceremony.
 
-Do not introduce a second governance ladder if an approved HermesOS authority model already exists. First discover and verify the current authority policy.
+## 7. Completion States
 
-Until verified, use this candidate extensible baseline only for planning:
+Use explicit states where durable tracking is useful:
 
-### T0 — Observe / Analyze
-Read-only, research, diagnostics, planning, static review, local simulation, and non-side-effect work.
+REQUESTED → PLANNED → EXECUTING → EXECUTED → VERIFIED → CLOSED
 
-### T1 — Safe Reversible Execution
-Scoped reversible work within defined permissions, budget, tests, audit trail, and rollback. May execute automatically where policy allows and can be reviewed asynchronously.
+Additional states may include:
 
-### T2 — Protected Execution
-Actions with meaningful blast radius, external commitment, customer impact, production impact, privileged access, material budget use, or sensitive integrations. Requires the configured approval policy.
+BLOCKED
+AWAITING_BOUNDARY_APPROVAL
+RECOVERY_PENDING
+CONFLICT_DETECTED
 
-### T3 — Locked / High-Consequence
-Irreversible or high-consequence actions such as live financial execution, live trading, destructive production changes, critical credential/security changes, major access-control changes, and other explicitly locked operations. Requires explicit authorized approval.
+More detailed local/remote/production verification states may be used when the workflow actually needs them.
 
-This taxonomy is extensible and must map to any verified existing governance rather than compete with it.
+## 8. Budget & Economic Autonomy
 
-## 6. Budget Policy
+There is no universal fixed $25/day HermesOS cap in this candidate policy.
 
-No unverified historical budget value is assumed active.
+Do not impose an arbitrary universal daily ceiling unless a future verified policy explicitly requires one.
 
-Every model/tool/action route should check the currently approved budget policy if one exists.
+Use dynamic economic governance:
 
-Best Model for the Task remains the routing rule:
+NORMAL MODE
+→ use the best-value models/tools needed to meet the quality target inside the certified envelope
+
+HIGH-VALUE MODE
+→ when revenue, opportunity, risk, or strategic value justifies it, use the best validated paid/specialist model or tool for the task
+
+ABNORMAL-SPEND MODE
+→ detect materially unusual spend, runaway consumption, repeated retries, or poor value creation and trigger review/escalation
+
+Routing rule:
 
 BEST VERIFIED OUTCOME PER JUSTIFIED DOLLAR
 
-Routine volume work should use economical/free/local models when they meet quality thresholds. Revenue-critical, security-sensitive, architectural, financial, or MASTER-quality work may escalate to stronger paid/specialist models when expected value justifies cost.
+Track cost and value where measurable, but do not optimize for minimum spend at the expense of materially better outcomes.
 
-## 7. Maker / Checker Separation
+## 9. Best Model + Best Node + BKM
 
-For material work, separate implementation from verification.
+For meaningful tasks jointly select:
+
+BEST KNOWN METHOD
++
+BEST MODEL FOR TASK
++
+BEST EXECUTION NODE
++
+BEST TOOLCHAIN
+
+Free/local/economical models should handle volume when they meet the required standard.
+
+High-value work may escalate to stronger models when expected value warrants it.
+
+## 10. Maker / Checker Separation
+
+For material work, separate implementation from verification when doing so materially improves reliability.
 
 MAKER / BUILDER
 → produces or changes
@@ -106,102 +206,115 @@ MAKER / BUILDER
 CHECKER / VALIDATOR
 → independently tests and challenges
 
-For higher-risk work, add:
+For higher-risk work, add specialist or contradiction review as justified.
 
-CONTRADICTION HUNTER
-SPECIALIST REVIEWER
-DESTINATION VERIFIER
+Do not force multi-agent review onto trivial tasks.
 
 No component self-certifies MASTER status.
 
-## 8. PEV Loop
+## 11. PEV / MASTER Execution Loop
 
-Use Planner → Executor → Validator as a compact implementation of the broader MASTER loop.
+Use Planner → Executor → Validator as a compact implementation of the broader MASTER loop when useful:
 
 PLANNER
-→ goal
-→ Definition of Done
+→ objective
 → current state
+→ Definition of Done
 → BKM
-→ dependencies
-→ risks
+→ risks/dependencies
 → plan
 
 EXECUTOR
-→ smallest safe increment
-→ checkpoint
+→ smallest useful increment
+→ checkpoint when warranted
 → evidence
 
 VALIDATOR
-→ independent tests
-→ contradiction search
+→ appropriate tests
 → actual-state verification
-→ PASS / REWORK / BLOCK / APPROVAL REQUIRED
+→ PASS / REWORK / BLOCK / BOUNDARY APPROVAL REQUIRED
 
-## 9. SCOUT Loop
+## 12. SCOUT — Proactive Gap Scan
 
-SCOUT is a repeatable proactive gap-scanning procedure, not a mandate to boil the ocean.
-
-SCOUT:
+SCOUT formalizes proactive thinking without forcing every task into a giant audit.
 
 SCAN
 → identify bottlenecks, risks, missing capabilities, stale assumptions, revenue opportunities, automation opportunities, technical debt, and upcoming dependencies
-→ cross-check current evidence
+→ cross-check important evidence
 → score value / urgency / confidence / cost
 → rank
 → recommend or execute within authority
-→ record findings
+→ record material findings
 
-SCOUT modes:
+Modes:
 
-- LIGHT: quick check for ordinary sessions
-- STANDARD: project/workstream scan
-- DEEP: strategic, pre-launch, incident, or explicitly requested comprehensive scan
+MICRO: no formal SCOUT unless an obvious material issue/opportunity appears
+LIGHT: quick scan for normal meaningful work
+STANDARD: project/workstream scan
+DEEP: launch, strategy, incident, high-value opportunity, or explicitly comprehensive work
 
-Default should be LIGHT unless the mission, risk, or user request warrants more depth.
+Depth should be inferred from mission value/risk rather than always consuming maximum tokens.
 
-## 10. No Universal “Boil the Ocean” Rule
+## 13. All Gas, No Brakes
 
-Depth must be proportional to task scope, risk, economic value, and uncertainty.
+No idle capacity when valuable authorized work exists.
 
-TRIVIAL TASK
-→ answer/execute efficiently
+After completing the current mission, agents may continue with the next highest-value work inside their Governance Envelope, including:
 
-MATERIAL TASK
-→ structured validation
+- resolving known blockers
+- improving reliability
+- testing
+- documentation
+- BKM improvement
+- automation
+- capability discovery
+- opportunity discovery
+- buy-back-time improvements
+- 100X analysis
 
-HIGH-VALUE / HIGH-RISK TASK
-→ deeper research, multiple checks, independent verification, and stronger models where justified
+Do not create pointless activity, runaway loops, or spend simply to remain busy.
 
-## 11. Durable Checkpoint / Session Resumption
+## 14. 100X & Buy Back Time
 
-Persist:
+For meaningful businesses, workflows, products, and systems, ask how value, revenue, scale, speed, automation, reuse, distribution, or defensibility could improve dramatically.
 
-- task ID
-- objective
-- Definition of Done
-- current step
-- completed and verified steps
-- pending steps
-- repo / branch / commit
-- files changed
-- tool state
-- external actions attempted / verified
-- evidence references
+Then identify the cheapest meaningful test.
+
+Continuously inspect repeated human work for:
+
+DELETE
+AUTOMATE
+DELEGATE
+TEMPLATE
+BATCH
+AGENTIZE
+
+## 15. Durable Checkpoint / Session Resumption
+
+Checkpoint when interruption, complexity, side effects, multi-device execution, or recovery risk warrants it.
+
+Persist enough to safely resume:
+
+- task/objective
+- current and completed steps
+- verified results
+- pending work
+- repo/branch/commit where applicable
+- external actions and their verified state
+- evidence
 - blockers
-- approval state
 - next safe action
 - recovery instructions
 
 On resume:
 
-LOAD CHECKPOINT → VERIFY ENVIRONMENT DRIFT → VERIFY REMOTE SIDE EFFECTS → VERIFY OWNERSHIP → RESUME FROM NEXT SAFE STEP
+LOAD → CHECK FOR DRIFT → VERIFY UNCERTAIN SIDE EFFECTS → CONFIRM OWNERSHIP → CONTINUE
 
-## 12. Long-Term Learning
+Do not make every tiny task produce a large checkpoint artifact.
 
-Do not depend on one `lessons_learned.md` file as the only memory system.
+## 16. Long-Term Learning
 
-Use structured:
+Use structured memory rather than one mandatory lessons file:
 
 - Shared Brain
 - Event Ledger
@@ -211,25 +324,35 @@ Use structured:
 - Benchmark History
 - Skill Version History
 
-A human-readable lessons file may be generated from structured records.
-
 Learn from successes, failures, rollbacks, human corrections, near misses, high-cost runs, and unexpected outcomes.
 
-## 13. Shadowing & Learning
+RESULT
+→ EXPECTED VS ACTUAL
+→ LESSON
+→ CANDIDATE IMPROVEMENT
+→ BENCHMARK
+→ PROMOTE IF SUPERIOR
 
-RUN
-→ compare expected vs actual
-→ identify cause
-→ capture durable lesson
-→ propose skill/prompt/loop improvement
-→ benchmark candidate
-→ promote only if measurably superior
+## 17. Capability & Envelope Evolution
 
-New autonomous behaviors should graduate through shadow/simulation/supervised/limited/authorized stages as appropriate.
+Agents should be able to improve and gain additional autonomy through evidence.
 
-## 14. Watchdog
+DISCOVER CAPABILITY
+→ BUILD/ADAPT SKILL
+→ TEST
+→ BENCHMARK
+→ VERIFY COMPATIBILITY
+→ CERTIFY
+→ EXPAND GOVERNANCE ENVELOPE
+→ MONITOR PERFORMANCE
 
-Monitor authorized telemetry for:
+Poor performance, security failures, repeated recovery failures, or material drift may narrow or suspend an envelope until retested.
+
+Governance should therefore be dynamic rather than permanently restrictive.
+
+## 18. Watchdog
+
+Monitor authorized telemetry for material issues such as:
 
 - suspected secret exposure
 - stuck workflows
@@ -239,123 +362,99 @@ Monitor authorized telemetry for:
 - stale checkpoints
 - sync drift
 - service degradation
-- unexpected spend
+- abnormal spend
 - duplicate execution
 - recovery failures
 
 On issue:
 
-DETECT → CLASSIFY → REDACT SENSITIVE MATERIAL → PRESERVE SAFE EVIDENCE → DETERMINE SEVERITY → REMEDIATE IF AUTHORIZED → ESCALATE IF REQUIRED → VERIFY RECOVERY
+DETECT → CLASSIFY → REDACT SENSITIVE MATERIAL → PRESERVE SAFE EVIDENCE → REMEDIATE IF INSIDE ENVELOPE → ESCALATE ONLY IF REQUIRED → VERIFY RECOVERY
 
 Never reproduce a detected secret in an alert.
 
-## 15. Conflict Resolution
+## 19. Conflict Resolution
 
 Do not automatically block all conflicts.
 
 CONFLICT
 → determine materiality
 → gather evidence
-→ reconcile if low-risk and objectively resolvable
+→ reconcile autonomously if low-risk and objectively resolvable
 → verify
-→ document
+→ document if material
 
-If materially ambiguous:
+If materially ambiguous or boundary-crossing:
 
-preserve evidence → prevent destructive overwrite → mark CONFLICT_DETECTED → identify exact decision → escalate
+preserve evidence → prevent destructive overwrite → identify exact decision → escalate that decision
 
-## 16. Device / Node Selection
+Continue unrelated authorized work.
 
-Do not permanently bind work to a device label when the task does not require it.
+## 20. Device / Node Selection & Failover
 
-Evaluate eligible execution nodes by:
+Do not permanently bind work to a device label when unnecessary.
 
-- availability
-- health
-- power/network
-- files/repo state
-- required tools/models
-- credentials/security boundary
-- hardware
-- load
-- active workflow ownership
-- latency/cost
+Evaluate eligible nodes by availability, health, network/power, files/repo state, tools/models, credentials/security boundary, hardware, load, workflow ownership, latency, and cost.
 
-Select the healthiest capable node and maintain a single active workflow owner for side-effecting tasks.
+Select the healthiest capable node.
 
-## 17. Idempotency & Duplicate Prevention
+For side-effecting workflows maintain one active owner/lease to prevent duplicate execution.
 
-Before external side effects:
+On failure:
 
-ACTION ID → IDEMPOTENCY KEY WHERE SUPPORTED → CHECK PRIOR EXECUTION → CHECK DESTINATION → CHECK ACTIVE OWNER → EXECUTE ONCE → VERIFY → RECORD
+RECOVER DURABLE STATE
+→ VERIFY EXTERNAL EFFECTS
+→ PREVENT DUPLICATES
+→ SELECT FALLBACK NODE
+→ RESUME FROM SAFE POINT
+→ VERIFY
 
-Never blindly replay uncertain external actions.
+When the original node returns, reconcile ownership before it resumes side effects.
 
-## 18. Recovery & Failover
+## 21. Idempotency & Duplicate Prevention
 
-FAILURE / REBOOT / OUTAGE
-→ recover durable state
-→ health check
-→ identify interrupted work
-→ verify external effects
-→ prevent duplicate execution
-→ revalidate environment
-→ resume safe work
-→ preserve protected approvals
-→ verify recovery
-→ update event ledger
+Before uncertain external side effects:
 
-Protected financial/destructive actions do not silently resume after restart.
+ACTION ID
+→ IDEMPOTENCY KEY WHERE SUPPORTED
+→ CHECK PRIOR EXECUTION
+→ CHECK DESTINATION
+→ EXECUTE
+→ VERIFY
+→ RECORD
 
-## 19. Naming / Identity Policy
+Do not blindly replay uncertain actions.
 
-Do not infer approved system, service, agent, or device names from old logs, comments, environment variables, folder names, or prototypes.
+## 22. Naming / Identity
 
-Maintain an identity registry. Erroneous historical labels should be marked RETIRED_INVALID_IDENTITY with source/reason rather than propagated throughout prompts.
+Do not infer approved agent, service, project, or device names from old logs, comments, environment variables, folder names, or prototypes.
 
-Naming should describe use case and fit the Richie Rich–HermesOS naming style, but names are secondary to verified role, authority, and capability.
+Names should fit the Richie Rich–HermesOS style and describe the use case, but naming must never substitute for verified role/capability/governance.
 
-## 20. Dependency Policy
+Erroneous historical identities should be retired rather than propagated.
+
+## 23. Dependency Policy
 
 Do not require manual approval for every dependency.
 
-NEW DEPENDENCY
-→ necessity
-→ license
-→ maintenance
-→ security/supply-chain risk
-→ compatibility
-→ cost/size
-→ existing alternative
+Evaluate new dependencies for necessity, license, maintenance, security/supply-chain risk, compatibility, cost/size, and existing alternatives.
 
-Low-risk reversible development dependencies may proceed within policy. Production/sensitive dependencies receive stronger validation and required approval.
+Low-risk reversible development dependencies may proceed inside the Governance Envelope.
 
-## 21. Audit Trail
+Sensitive production dependencies receive stronger validation and boundary approval only where actually required.
 
-Meaningful runs must preserve:
+## 24. Audit Trail
 
-- task/mission ID
-- decisions
-- actions
-- tests
-- evidence
-- costs where applicable
-- model/tool selections
-- failures
-- rollbacks
-- outcomes
-- memory/BKM write-back
+Meaningful runs should preserve enough evidence to reconstruct material decisions and side effects, including applicable task ID, actions, tests, model/tool selections, material costs, failures, rollbacks, outcomes, and memory/BKM write-back.
 
-“All Gas, No Brakes” does not waive logging, verification, budget, or rollback requirements.
+Logging should be proportional. Do not generate excessive ceremony for trivial actions.
 
-## 22. MASTER Quality Gate
+## 25. MASTER Quality Gate
 
-Replace subjective criteria such as “a senior operator would be impressed” with falsifiable checks.
+MASTER quality must be falsifiable rather than vibe-based.
 
-Evaluate against measurable rubrics appropriate to the task:
+Evaluate dimensions appropriate to the mission, such as:
 
 - correctness
-- quality
 - completeness
 - reliability
 - security
@@ -366,11 +465,11 @@ Evaluate against measurable rubrics appropriate to the task:
 - user/business outcome
 - human correction rate
 
-Use Benchmark Arena and independent validation. MASTER status must be earned.
+Use Benchmark Arena and independent validation where value/risk justifies them.
 
-## 23. Verification Register
+## 26. Verification Register & Stale Evidence
 
-Maintain machine-readable status for critical components:
+Maintain verification status for critical components when useful:
 
 UNKNOWN
 DISCOVERED
@@ -380,55 +479,53 @@ DRIFTED
 FAILED
 DEPRECATED
 
-Each verification record should include evidence, timestamp, method, responsible process, and revalidation trigger/TTL where appropriate.
+Evidence should include timestamp/method and revalidation trigger or TTL proportional to volatility.
 
-## 24. Stale Evidence
+Do not treat stale runtime evidence as current truth.
 
-Verification expires based on volatility.
+## 27. Continuous Evolution
 
-Runtime/service health: short TTL.
-Deployment/config state: short-to-medium TTL.
-Repository ownership or architectural decisions: longer-lived but revalidated when relevant changes occur.
+Verification and governance must never become bureaucracy that prevents HermesOS from improving.
 
-Do not treat old evidence as current merely because it once passed.
-
-## 25. Continuous Evolution
-
-Verification is not bureaucracy for its own sake.
-
-Apply verification effort proportional to:
+Apply control effort proportional to:
 
 RISK × IRREVERSIBILITY × ECONOMIC IMPACT × SECURITY IMPACT × BLAST RADIUS × UNCERTAINTY
 
-Preserve and integrate:
+Preserve:
 
+- Earned Autonomy
+- Governance Envelopes
+- Best Model for the Task
+- BKM
 - 100X Thinker
 - All Gas, No Brakes
+- SCOUT
 - Capability Scout
 - Gap Hunter
 - Buy Back Time
 - Skill Evolver
 - Benchmark Arena
-- BKM
-- Best Model for the Task
 
-The purpose of governance is to make HermesOS safer, faster, more autonomous, more profitable, and easier to evolve.
+The target state is not maximum restriction.
 
-## 26. Outstanding Claims from External Draft — Verification Required
+The target state is:
 
-The following were asserted in an external draft but were not verified in the current `TEAM-MMM01/hermes-agent` code search at creation time:
+PROVEN AGENTS WITH BROAD AUTONOMY INSIDE VERIFIED DOMAINS, HARD STOPS ONLY AT MATERIAL BOUNDARIES, CONTINUOUS LEARNING, AND EXPANDING CAPABILITY THROUGH EVIDENCE.
 
-- an existing ADR-012
-- a current $25/day hard cap
-- an existing L0→L3 autonomy ladder
-- a current maker/checker governance implementation
-- an existing `lessons_learned.md` implementation
-- a current watchdog/checkpoint/PEV implementation
+## 28. Outstanding Claims Requiring Discovery
 
-These are candidates to discover and reconcile across other approved HermesOS repositories, Obsidian, or historical artifacts. They must not be treated as current canonical truth until verified.
+Do not assume historical governance claims are active until repository/source-of-truth audit verifies them.
 
-## 27. Recommended Integration Rule
+If older authority ladders, budget caps, maker/checker policies, PEV implementations, watchdogs, checkpoint systems, or memory systems are found:
+
+REUSE → IMPROVE → CONSOLIDATE → MIGRATE
+
+Do not create competing parallel governance systems.
+
+Any historical fixed $25/day cap discovered should be treated as a candidate legacy policy requiring reconciliation, not automatically inherited by this architecture.
+
+## 29. Recommended Integration Rule
 
 REUSE → IMPROVE → CONSOLIDATE → BUILD
 
-Do not create a second authority system, second memory system, or second verification system if a verified current implementation already exists. Map and extend the existing one.
+When this candidate is reconciled and approved, it should replace conflicting permission-heavy governance rather than coexist beside it.
