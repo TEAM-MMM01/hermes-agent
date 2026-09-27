@@ -27,5 +27,11 @@ Talk track: “No problem if a retainer is premature. We can keep this simple wi
 ## Offer discipline
 
 - One primary next step per conversation.
-- Never discount without removing scope or receiving something valuable, such as a testimonial.
+- Every figure in brackets above comes from a written quote, priced after scope and effort are estimated. Never quote a number on a call.
+- Retainer quotes always state the monthly light-support hour cap.
+- Never discount without removing scope or receiving something valuable, such as a testimonial obtained through the Testimonial and Case-Study Consent form (opt-in, revocable, no client data without written approval).
 - Frame Build as implementation of the written plan, not generic AI help.
+
+## CRM stages for this ladder
+
+Track every prospect in `crm/crm.py` using these stages, in order: Lead → Intro call booked → Intro done → Diagnostic proposed → Diagnostic signed → Diagnostic delivered → Build proposed → Build signed → Build delivered → Retainer active / Office Hours active, or Closed-lost at any point.

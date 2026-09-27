@@ -1,7 +1,7 @@
 # Networking Scripts
 
 ## 20-second introduction
-“I run ASCLEPIUS AI Consulting. I help owner-operated businesses diagnose where AI can actually save time, then I write a plain-English AI Prescription and can implement the highest-value workflows.”
+“I run MMM Consulting. I help owner-operated businesses diagnose where AI can actually save time, then I write a plain-English AI Prescription and can implement the highest-value workflows.”
 
 ## Follow-up question
 “What is one task your team repeats every week that everyone knows is inefficient?”

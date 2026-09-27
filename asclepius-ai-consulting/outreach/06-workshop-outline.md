@@ -8,7 +8,7 @@ Title: “AI Without the Hype: 5 Workflows Small Businesses Can Fix This Month�
 3. Live worksheet: identify one repeated task, one handoff delay, one owner-only decision.
 4. Examples: HVAC lead response, clinic intake summaries, law firm FAQ drafts.
 5. Safety: privacy, approvals, and keeping humans in the loop.
-6. CTA: book a 30-minute AI Diagnostic.
+6. CTA: book a free intro call to see whether a Diagnostic is worth it.
 
 ## Closing script
 “If you leave with one thing, make it this: do not buy another AI subscription until you know which workflow it treats. I’m offering Diagnostics for owners who want the prescription before the implementation.”

@@ -1,7 +1,7 @@
 # Referral Ask Scripts
 
 ## Warm text
-Hey {{name}} — I’m launching ASCLEPIUS, an AI consulting service for owner-operated small businesses. I diagnose manual bottlenecks and write a practical “AI Prescription.” Do you know one business owner with 3–50 employees who feels buried in admin or follow-up? If yes, would you intro us?
+Hey {{name}} — I’m launching MMM Consulting, an AI consulting service for owner-operated small businesses. I diagnose manual bottlenecks and write a practical “AI Prescription.” Do you know one business owner with 3–50 employees who feels buried in admin or follow-up? If yes, would you intro us?
 
 ## Email
 Subject: quick intro ask
