@@ -1,1 +1,31 @@
-body{margin:0;font-family:Inter,system-ui,sans-serif;background:#071015;color:#eef7f2}main{max-width:1050px;margin:auto;padding:56px 22px}.hero{padding:72px 0}.eyebrow{color:#79e6b5;text-transform:uppercase;letter-spacing:.18em}h1{font-size:clamp(42px,8vw,82px);line-height:.95;margin:0 0 24px}.hero p{max-width:720px;font-size:22px;color:#c9d8d0}.cta{display:inline-block;margin-top:20px;background:#79e6b5;color:#071015;padding:16px 22px;border-radius:999px;font-weight:800;text-decoration:none}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}article{background:linear-gradient(145deg,#102129,#0b181e);border:1px solid #24434c;border-radius:24px;padding:24px}section:last-child{margin-top:48px;background:#0d1c23;border-radius:24px;padding:28px}
+/* MMM Consulting — orange/black palette.
+   Contrast (WCAG 2.x) checked for every text/background pair used below:
+   --text on --bg, --muted on --bg/--surface, --accent on --bg/--surface, --on-accent on --accent all pass AA (>= 4.5:1). */
+:root{
+  --bg:#0a0a0a;
+  --surface:#161616;
+  --border:#3d2a1a;
+  --text:#f5f5f5;
+  --muted:#c8c8c8;
+  --accent:#ff7a1a;
+  --accent-hover:#ff9447;
+  --on-accent:#0a0a0a;
+}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
+main{max-width:1050px;margin:auto;padding:56px 22px}
+.hero{padding:72px 0}
+.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.18em;font-weight:700}
+h1{font-size:clamp(42px,8vw,82px);line-height:.95;margin:0 0 24px}
+h2{color:var(--text)}
+.hero p{max-width:720px;font-size:22px;color:var(--muted)}
+.hero .note{font-size:16px}
+.cta{display:inline-block;margin-top:20px;background:var(--accent);color:var(--on-accent);padding:16px 22px;border-radius:999px;font-weight:800;text-decoration:none}
+.cta:hover{background:var(--accent-hover)}
+.cta:focus-visible{outline:3px solid var(--text);outline-offset:3px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+article{background:var(--surface);border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:24px;padding:24px}
+article p{color:var(--muted)}
+.pricing{margin-top:48px}
+.pricing p,.panel p{color:var(--muted);max-width:760px}
+.panel{margin-top:48px;background:var(--surface);border-radius:24px;padding:28px}
+footer{border-top:1px solid var(--border);padding:24px 22px;text-align:center;color:var(--muted)}

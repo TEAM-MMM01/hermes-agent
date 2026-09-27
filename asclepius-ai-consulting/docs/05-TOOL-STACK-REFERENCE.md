@@ -2,6 +2,8 @@
 
 **Dated reference: August 2026. Verify current pricing, features, privacy terms, and integrations before prescribing. This list goes stale fast. Review/update monthly.**
 
+**Listing a tool here does not approve it for client data.** Only tools on the approved list in `docs/COMPLIANCE-AND-DATA-HANDLING.md` (section 7, default none) may touch Internal, Confidential, or Restricted client data. For regulated clients, the client's own approved/banned tool list also applies.
+
 ## Customer service
 
 Categories: website chat, shared inboxes, helpdesk macros, AI-assisted reply drafting. Examples to verify: Intercom, Zendesk, Help Scout, Gorgias, Tidio, Crisp, ChatGPT Team/Enterprise with custom GPTs.
