@@ -10,7 +10,7 @@ The consulting offer needs a market-facing name, a legal entity decision, and a 
 
 ## Decision 1 — Business name and brand
 
-Status: LOCKED by owner, 2026-09-26. Market-facing name: **MMM Consulting**. Brand colors: orange and black. It replaces the earlier working name everywhere in client-facing content. The repository folder name (`asclepius-ai-consulting/`) is kept as-is to avoid breaking paths; it is internal only and never shown to clients. "The AI Prescription" remains the name of the Diagnostic deliverable.
+Status: LOCKED by owner, 2026-09-26; brand color amended by owner, 2026-09-27. Market-facing name: **MMM Consulting**. Brand color: deep teal (matching the shipped logo, intake form, and Calendly assets — orange/black was the initial ADR pick, since superseded). It replaces the earlier working name everywhere in client-facing content. The repository folder name (`asclepius-ai-consulting/`) is kept as-is to avoid breaking paths; it is internal only and never shown to clients. "The AI Prescription" remains the name of the Diagnostic deliverable.
 
 ## Decision 2 — Legal entity
 
@@ -23,5 +23,5 @@ Status: PROPOSED — AWAITING RICHIE'S LOCK. Default recommendation: keep this f
 ## Consequences
 
 - Contracts and invoices need the final legal entity name and governing law before the first paid engagement.
-- Website booking link stays a placeholder until the Calendly URL is provided.
+- Website booking link is set: owner-confirmed `https://calendly.com/mmminvestment25/30min`.
 - Decoupling prevents this consulting launch from being delayed by product architecture.
