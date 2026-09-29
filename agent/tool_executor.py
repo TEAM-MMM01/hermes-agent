@@ -1856,7 +1856,6 @@ def execute_tool_calls_sequential(agent, assistant_message, messages: list, effe
                 execute=_execute,
                 scope_block=_ts_scope_block,
                 display_index=i,
-                start_time=tool_start_time,
             ))
         elif function_name == "session_search":
             def _execute(next_args: dict) -> Any:
@@ -1885,7 +1884,6 @@ def execute_tool_calls_sequential(agent, assistant_message, messages: list, effe
                 execute=_execute,
                 scope_block=_ts_scope_block,
                 display_index=i,
-                start_time=tool_start_time,
             ))
         elif function_name == "memory":
             def _execute(next_args: dict) -> Any:
@@ -1922,7 +1920,6 @@ def execute_tool_calls_sequential(agent, assistant_message, messages: list, effe
                 execute=_execute,
                 scope_block=_ts_scope_block,
                 display_index=i,
-                start_time=tool_start_time,
             ))
         elif function_name == "clarify":
             def _execute(next_args: dict) -> Any:
@@ -1942,7 +1939,6 @@ def execute_tool_calls_sequential(agent, assistant_message, messages: list, effe
                 execute=_execute,
                 scope_block=_ts_scope_block,
                 display_index=i,
-                start_time=tool_start_time,
             ))
         elif function_name == "read_terminal":
             def _execute(next_args: dict) -> Any:
