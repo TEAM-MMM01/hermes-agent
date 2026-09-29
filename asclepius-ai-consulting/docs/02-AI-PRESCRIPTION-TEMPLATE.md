@@ -116,4 +116,4 @@ North Ridge loses booked jobs because inquiries wait for the office manager, and
 
 ## Next step
 
-Scope Priorities 1 and 2 as a fixed-fee Build, quoted in writing after scope and effort are estimated, with a 14-day tune-up window.
+Scope Priorities 1 and 2 as a fixed-fee Build, quoted in writing after scope and effort are estimated.
