@@ -139,9 +139,11 @@ class TestGetSessionRichRow:
 
         assert full["system_prompt"] == "a very long prompt"
         assert "system_prompt" not in compact
+        assert "system_prompt_hash" not in compact
         # Everything else the caller renders is still there.
+        # compact_rows also drops system_prompt_hash (see SessionDB._SESSION_COMPACT_EXCLUDED).
         assert compact["id"] == "s1"
-        assert set(full) - set(compact) == {"system_prompt"}
+        assert set(full) - set(compact) == {"system_prompt", "system_prompt_hash"}
 
 
 class TestDistinctSessionCwds:
