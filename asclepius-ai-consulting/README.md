@@ -1,6 +1,6 @@
 # MMM Consulting
 
-`PROJECT_NAME = MMM Consulting` (brand: orange/black). The repository folder is still named `asclepius-ai-consulting/` for path stability; that name is internal only.
+`PROJECT_NAME = MMM Consulting` (brand: deep teal, matching the shipped logo/form/Calendly assets). The repository folder is still named `asclepius-ai-consulting/` for path stability; that name is internal only.
 
 **One-line pitch:** MMM Consulting sells "The AI Prescription": a doctor-style diagnostic and implementation service for owner-operated small businesses that want practical AI wins without becoming AI experts.
 
